@@ -1,0 +1,6 @@
+.idea/
+.vscode/
+
+api/cmd/*
+api/models/*
+api/restapi/*

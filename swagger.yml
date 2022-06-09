@@ -1,0 +1,32 @@
+---
+swagger: "2.0"
+info:
+  title: Hanoman Xendit Payment
+  description: Hanoman Xendit Payment
+  version: 1.0.0
+schemes:
+- http
+
+paths:
+  /:
+    get:
+      tags:
+        - hello
+      responses:
+        200:
+          description: Hello World
+        default:
+          description: generic error response
+          schema:
+            $ref: "#/definitions/error"
+definitions:
+  error:
+    type: object
+    required:
+      - message
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string
