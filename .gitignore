@@ -1,7 +1,9 @@
 .idea/
 .vscode/
 
-api/cmd/*
-api/models/*
-api/restapi/*
-!api/restapi/configure_swagger.go
+internal/apis/*
+internal/models/*
+!internal/apis/configure_hanoman_payment.go
+!internal/handler/*
+
+hanoman-payment-server
