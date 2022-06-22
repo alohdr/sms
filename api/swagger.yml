@@ -11,13 +11,7 @@ schemes:
 tags:
   - name: "Health"
     description: "Every request and response about Health Check"
-  - name: "Family"
-    description: "Every request and response about Family"
-  - name: "Me"
-    description: "Every request and response about Me"
-
 paths:
-  
   /health:
     get:
       summary: "Health check"
@@ -26,7 +20,6 @@ paths:
         - "Health"
       produces:
         - "application/json"
-
       responses:
         "200":
           description: "Success"
@@ -40,16 +33,66 @@ paths:
               data:
                 type: object
                 $ref: "#/definitions/Health"
-
         "400":
           $ref: "#/responses/BadRequest"
         "401":
           $ref: "#/responses/BadRequest"
         "404":
           $ref: "#/responses/NotFound"
+
+  /making-payments:
+    get:
+      summary: "Success retrieve onboarding progress"
+      description: "Success retrieve onboarding progress"
+      tags:
+        - "Payment"
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          name: bank_code
+          type: string
+          required: true
+          description: The filter search by name.
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              message:
+                type: "string"
+                description: "success retrieve data"
+                example: "app running well"
+              data:
+                type: object
+                $ref: "#/definitions/MakingPayment"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound"
+        "500":
+          $ref: "#/responses/InternalServerError" 
   
 definitions:
-  
+  MakingPayment:
+    type: object
+    properties: 
+      bank_code:
+        type: string
+        example: "BCA"
+      atm:
+        type: string
+        example: ""
+      internet_banking:
+        type: string
+        example: ""
+      mobile_banking:
+        type: string
+        example: ""
+
   Health:
     type: "object"
     properties:

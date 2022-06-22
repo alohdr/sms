@@ -1,6 +1,6 @@
 .PHONY: build run run-api doc validate spec clean web help
 
-all: validate clean build
+all: run-sqlc validate clean build
 
 validate:
 	swagger validate ./api/swagger.yml
@@ -10,7 +10,7 @@ spec:
 
 build:
 	swagger -q generate server -A hanoman-payment -f api/swagger.yml -s internal/apis -m internal/models
-	go build -ldflags="-w -s" -v ./cmd/hanoman-payment-server
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -v ./cmd/hanoman-payment-server
 
 
 api: validate clean build
@@ -26,6 +26,15 @@ doc:
 clean:
 	rm -rf hanoman-payment-server
 	go clean -i .
+
+run-sqlc:
+	./run-sqlc.sh
+
+migrate-up-local:
+	migrate -path internal/repository/schema -database "mysql://root:password@tcp(localhost:3306)/payment?query" -verbose up
+
+create-migration:
+	migrate create -ext sql -dir internal/repository/schema -seq $(action)
 
 help:
 	@echo "make: compile packages and dependencies"

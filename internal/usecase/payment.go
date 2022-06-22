@@ -11,7 +11,6 @@ func (uc *useCase) GetMakingPayment(ctx context.Context, params payment.GetMakin
 	if err != nil {
 		return nil, err
 	}
-
 	resp := &models.MakingPayment{
 		Atm:             result.Atm,
 		BankCode:        result.BankCode,

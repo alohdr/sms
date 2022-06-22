@@ -3,6 +3,7 @@
 package apis
 
 import (
+	"context"
 	"crypto/tls"
 	"net/http"
 
@@ -12,6 +13,8 @@ import (
 
 	"hanoman-id/xendit-payment/internal/apis/operations"
 	"hanoman-id/xendit-payment/internal/apis/operations/health"
+	"hanoman-id/xendit-payment/internal/apis/operations/payment"
+	"hanoman-id/xendit-payment/internal/handler"
 	"hanoman-id/xendit-payment/internal/models"
 )
 
@@ -45,6 +48,17 @@ func configureAPI(api *operations.HanomanPaymentAPI) http.Handler {
 				Status: "200",
 			},
 			Message: "Good",
+		})
+	})
+
+	api.PaymentGetMakingPaymentsHandler = payment.GetMakingPaymentsHandlerFunc(func(params payment.GetMakingPaymentsParams) middleware.Responder {
+		result, err := handler.NewHandler().GetMakingPayment(context.Background(), params)
+		if err != nil {
+			return payment.NewGetMakingPaymentsBadRequest().WithPayload(&models.Error{Code: "400", Message: err.Error()})
+		}
+		return payment.NewGetMakingPaymentsOK().WithPayload(&payment.GetMakingPaymentsOKBody{
+			Data:    result,
+			Message: "success",
 		})
 	})
 
