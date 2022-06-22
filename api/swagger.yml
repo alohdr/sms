@@ -78,20 +78,17 @@ paths:
   
 definitions:
   MakingPayment:
-    type: object
-    properties: 
-      bank_code:
-        type: string
-        example: "BCA"
-      atm:
-        type: string
-        example: ""
-      internet_banking:
-        type: string
-        example: ""
-      mobile_banking:
-        type: string
-        example: ""
+        type: array
+        items: 
+          type: object
+          properties: 
+            header:
+              type: string
+              example: ""
+            description:
+              type: string
+              example: ""
+
 
   Health:
     type: "object"

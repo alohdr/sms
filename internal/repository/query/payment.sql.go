@@ -9,26 +9,35 @@ import (
 	"context"
 )
 
-const getMakingPayment = `-- name: GetMakingPayment :one
-SELECT bank_code, atm, internet_banking, mobile_banking FROM making_payment WHERE bank_code = ?
-LIMIT 1
+const getMakingPayment = `-- name: GetMakingPayment :many
+SELECT bank_code, type, description FROM making_payment WHERE bank_code = ?
 `
 
 type GetMakingPaymentRow struct {
-	BankCode        string `json:"bank_code"`
-	Atm             string `json:"atm"`
-	InternetBanking string `json:"internet_banking"`
-	MobileBanking   string `json:"mobile_banking"`
+	BankCode    string `json:"bank_code"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
 }
 
-func (q *Queries) GetMakingPayment(ctx context.Context, bankCode string) (*GetMakingPaymentRow, error) {
-	row := q.db.QueryRowContext(ctx, getMakingPayment, bankCode)
-	var i GetMakingPaymentRow
-	err := row.Scan(
-		&i.BankCode,
-		&i.Atm,
-		&i.InternetBanking,
-		&i.MobileBanking,
-	)
-	return &i, err
+func (q *Queries) GetMakingPayment(ctx context.Context, bankCode string) ([]*GetMakingPaymentRow, error) {
+	rows, err := q.db.QueryContext(ctx, getMakingPayment, bankCode)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetMakingPaymentRow
+	for rows.Next() {
+		var i GetMakingPaymentRow
+		if err := rows.Scan(&i.BankCode, &i.Type, &i.Description); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }

@@ -7,15 +7,18 @@ import (
 )
 
 func (uc *useCase) GetMakingPayment(ctx context.Context, params payment.GetMakingPaymentsParams) (*models.MakingPayment, error) {
-	result, err := uc.repo.GetMakingPayment(ctx, params)
+	result := models.MakingPayment{}
+	data, err := uc.repo.GetMakingPayment(ctx, params)
 	if err != nil {
 		return nil, err
 	}
-	resp := &models.MakingPayment{
-		Atm:             result.Atm,
-		BankCode:        result.BankCode,
-		InternetBanking: result.InternetBanking,
-		MobileBanking:   result.MobileBanking,
+
+	for _, v := range data {
+		result = append(result, &models.MakingPaymentItems0{
+			Description: v.Description,
+			Header:      v.Type,
+		})
 	}
-	return resp, nil
+
+	return &result, nil
 }

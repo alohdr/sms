@@ -13,7 +13,7 @@ type handler struct {
 }
 
 type Handlers interface {
-	GetMakingPayment(ctx context.Context, params payment.GetMakingPaymentsParams) (*models.MakingPayment, error)
+	GetMakingPayment(ctx context.Context, params payment.GetMakingPaymentsParams) (models.MakingPayment, error)
 }
 
 func NewHandler() Handlers {

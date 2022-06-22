@@ -11,7 +11,7 @@ type repositories struct {
 }
 
 type Repositories interface {
-	GetMakingPayment(ctx context.Context, params payment.GetMakingPaymentsParams) (*query.GetMakingPaymentRow, error)
+	GetMakingPayment(ctx context.Context, params payment.GetMakingPaymentsParams) ([]*query.GetMakingPaymentRow, error)
 }
 
 func NewRepositories(q *query.Queries) Repositories {

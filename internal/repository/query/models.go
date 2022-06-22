@@ -7,9 +7,8 @@ package query
 import ()
 
 type MakingPayment struct {
-	ID              int32  `json:"id"`
-	BankCode        string `json:"bank_code"`
-	Atm             string `json:"atm"`
-	InternetBanking string `json:"internet_banking"`
-	MobileBanking   string `json:"mobile_banking"`
+	ID          int32  `json:"id"`
+	BankCode    string `json:"bank_code"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
 }
