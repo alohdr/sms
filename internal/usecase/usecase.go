@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"hanoman-id/xendit-payment/internal/apis/operations/auth"
 	"hanoman-id/xendit-payment/internal/apis/operations/payment"
 	"hanoman-id/xendit-payment/internal/models"
 	"hanoman-id/xendit-payment/internal/repositories"
@@ -13,6 +14,8 @@ type useCase struct {
 
 type UseCase interface {
 	GetMakingPayment(ctx context.Context, params payment.GetMakingPaymentsParams) (*models.MakingPayment, error)
+	CreateOtp(ctx context.Context, params auth.PostCreateOtpParams) (*string, error)
+	ValidateOtp(ctx context.Context, params auth.PostValidateOtpParams) (*auth.PostValidateOtpOKBodyData, error)
 }
 
 func NewUseCase(r repositories.Repositories) UseCase {

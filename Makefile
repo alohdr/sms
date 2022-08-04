@@ -31,7 +31,7 @@ run-sqlc:
 	./run-sqlc.sh
 
 migrate-up-local:
-	migrate -path internal/repository/schema -database "mysql://root:password@tcp(localhost:3306)/payment?query" -verbose up
+	migrate -path internal/repository/schema -database "mysql://maul:maul@tcp(127.0.0.1:3306)/payment?query" -verbose up
 
 create-migration:
 	migrate create -ext sql -dir internal/repository/schema -seq $(action)

@@ -3,8 +3,8 @@ package handler
 import (
 	"context"
 	"hanoman-id/xendit-payment/configs"
-	"hanoman-id/xendit-payment/internal/apis/operations/payment"
-	"hanoman-id/xendit-payment/internal/models"
+	"hanoman-id/xendit-payment/internal/apis/operations/auth"
+	"hanoman-id/xendit-payment/internal/apis/operations/health"
 	"hanoman-id/xendit-payment/internal/usecase"
 )
 
@@ -13,7 +13,10 @@ type handler struct {
 }
 
 type Handlers interface {
-	GetMakingPayment(ctx context.Context, params payment.GetMakingPaymentsParams) (models.MakingPayment, error)
+	CreateOtp(ctx context.Context, params auth.PostCreateOtpParams) (*auth.PostCreateOtpOKBodyData, error)
+	ValidateOtp(ctx context.Context, params auth.PostValidateOtpParams) (*auth.PostValidateOtpOKBodyData, error)
+	GetWelcome(ctx context.Context, params health.GetWelcomeParams, principal interface{}) (health.GetWelcomeOKBody, error)
+	ReadirectToken(ctx context.Context, params health.GetRedirectParams) (health.GetRedirectOKBody, error)
 }
 
 func NewHandler() Handlers {

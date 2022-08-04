@@ -12,3 +12,10 @@ type MakingPayment struct {
 	Type        string `json:"type"`
 	Description string `json:"description"`
 }
+
+type Otp struct {
+	ID          int32  `json:"id"`
+	PhoneNumber string `json:"phone_number"`
+	Otp         string `json:"otp"`
+	ExpiredDate string `json:"expired_date"`
+}
