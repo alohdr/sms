@@ -12,17 +12,17 @@ type Token struct {
 	*jwt.StandardClaims
 }
 
-func GenerateToken(secret string, expiredDuration time.Duration, data interface{}) (*string, error) {
+func GenerateToken(data interface{}) (*string, error) {
 	dataToken := &Token{
 		Data: data,
 		StandardClaims: &jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(expiredDuration).Unix(),
+			ExpiresAt: time.Now().Add(ExpiredTokenDuration).Unix(),
 			Issuer:    "budiman",
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, dataToken)
-	result, err := token.SignedString([]byte("IWANSECRET"))
+	result, err := token.SignedString([]byte(SecretToken))
 	if err != nil {
 		return nil, err
 	}
@@ -31,18 +31,17 @@ func GenerateToken(secret string, expiredDuration time.Duration, data interface{
 }
 
 func ValidateHeader(bearerHeader string) (interface{}, error) {
-	secret := "IWANSECRET"
-	hmacSecret := []byte(secret)
+	hmacSecret := []byte(SecretToken)
 	token, err := jwt.Parse(bearerHeader, func(token *jwt.Token) (interface{}, error) {
 		return hmacSecret, nil
 	})
 	if err != nil {
-		return nil, err
+		return nil, errors.New("INVALID TOKEN")
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		data := claims["Data"]
 
 		return data, nil
 	}
-	return nil, errors.New("invalid JWT Token")
+	return nil, errors.New("FAILED TO CLAIM TOKEN")
 }

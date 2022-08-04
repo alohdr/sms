@@ -57,7 +57,7 @@ func (uc *useCase) ValidateOtp(ctx context.Context, params auth.PostValidateOtpP
 		"role":     "ADMIN",
 	}
 
-	token, err := utils.GenerateToken("IWANSECRET", time.Minute*300, isiData)
+	token, err := utils.GenerateToken(isiData)
 	if err != nil {
 		fmt.Println("MASUK ERROR")
 		return nil, err
