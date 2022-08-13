@@ -19,8 +19,272 @@ tags:
     description: "Every request and response about Health Check"
   - name: "Auth"
     description: "Every request and response about Auth"
+  - name: "Provider"
+    description: "Every request and response about Provider"
+  - name: "Sms"
+    description: "Every request and response about Sms"
+  - name: "Template"
+    description: "Every request and response about Template"
 
 paths:
+  /sms:
+    post:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Sms"
+      produces:
+        - "application/json"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema: 
+            $ref: "#/definitions/CreateSmsRequest"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: object
+                $ref: "#/definitions/SmsResponse"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound"
+  /sms/history:
+    get:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Sms"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              metadata:
+                type: object
+                $ref: "#/definitions/Metadata"                
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: object
+                $ref: "#/definitions/SmsHistory"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound"
+  /template/{template_id}:
+    put:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Template"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: template_id
+          type: string
+          required: true
+        - in: body
+          name: body
+          required: true
+          schema: 
+            $ref: "#/definitions/CreateTemplate"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: "object"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound"
+    delete:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Template"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: template_id
+          type: string
+          required: true
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: "null"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound" 
+
+  /template:
+    post:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Template"
+      produces:
+        - "application/json"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema: 
+            $ref: "#/definitions/CreateTemplate"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: "string"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound"
+    get:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Template"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: object
+                $ref: "#/definitions/GetTemplate"
+
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound" 
+          
+  /provider:
+    get:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Provider"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: object
+                properties: 
+                  id:
+                    type: "string"
+                    description: "success retrieve data"
+                    example: "app running well"
+                  name:
+                    type: "string"
+                    description: "success retrieve data"
+                    example: "app running well"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound" 
+  /provider/{provider_id}:
+    put:
+      summary: "Health check"
+      description: "Health check endpoint"
+      tags:
+        - "Provider"
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: provider_id
+          type: string
+          required: true
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              id:
+                type: "string"
+                description: "success retrieve data"
+                example: "app running well"
+              name:
+                type: "string"
+                description: "success retrieve data"
+                example: "app running well"
+        "400":
+          $ref: "#/responses/BadRequest"
+        "401":
+          $ref: "#/responses/BadRequest"
+        "404":
+          $ref: "#/responses/NotFound"  
   /redirect:
     get:
       summary: "Health check"
@@ -171,20 +435,104 @@ paths:
           $ref: "#/responses/BadRequest"
         "404":
           $ref: "#/responses/NotFound"
+
+  
 definitions:
+  SmsHistory:
+    type: array
+    items: 
+      properties: 
+        id:
+          type: integer
+        name:
+          type: string
+
+  Metadata:
+    type: object
+    properties:
+      page:
+        type: integer
+        example: 1
+      limit: 
+        type: integer
+        example: 1
+      total_row: 
+        type: integer
+        example: 1
+      
+  CreateSmsRequest:
+    type: object
+    properties: 
+      apps_name:
+        type: string
+        example: ""
+      phone_number: 
+        type: string
+        example: ""
+      token:
+        type: string
+      type:
+        type: string
+        example: ""
+  SmsResponse:
+    type: object
+    properties: 
+      apps_name:
+        type: string
+        example: ""
+      phone_number: 
+        type: string
+        example: ""
+      type:
+        type: string
+        example: ""
+      status:
+        type: string
+        example: ""
   MakingPayment:
-        type: array
-        items: 
-          type: object
-          properties: 
-            header:
+    type: array
+    items: 
+      type: object
+      properties: 
+        header:
+          type: string
+          example: ""
+        description:
+          type: string
+          example: ""
+  CreateTemplate:
+        type: object
+        properties: 
+            name:
               type: string
               example: ""
-            description:
+            type:
               type: string
               example: ""
-
-
+            apps_name:
+              type: string
+              example: ""
+            text:
+              type: string
+              example: ""
+  GetTemplate:
+        type: object
+        properties: 
+            id:
+              type: string
+              example: ""
+            name:
+              type: string
+              example: ""
+            type:
+              type: string
+              example: ""
+            apps_name:
+              type: string
+              example: ""
+            text:
+              type: string
+              example: ""
   Health:
     type: "object"
     properties:
