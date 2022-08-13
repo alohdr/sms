@@ -516,23 +516,21 @@ definitions:
               type: string
               example: ""
   GetTemplate:
-        type: object
-        properties: 
-            id:
-              type: string
-              example: ""
-            name:
-              type: string
-              example: ""
-            type:
-              type: string
-              example: ""
-            apps_name:
-              type: string
-              example: ""
-            text:
-              type: string
-              example: ""
+        type: array
+        items: 
+          properties: 
+              id:
+                type: string
+                example: ""
+              type:
+                type: string
+                example: ""
+              apps_name:
+                type: string
+                example: ""
+              text:
+                type: string
+                example: ""
   Health:
     type: "object"
     properties:
