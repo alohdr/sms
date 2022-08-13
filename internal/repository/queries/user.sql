@@ -5,5 +5,5 @@ SELECT
 FROM
     users
 WHERE
-    id = ?
+    username = ?
     and is_deleted = false;

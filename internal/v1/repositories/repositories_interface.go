@@ -19,6 +19,8 @@ type Repositories interface {
 
 	GetProvider(ctx context.Context) (*query.GetProviderRow, error)
 	UpdateProvider(ctx context.Context, params provider.PutProviderProviderIDParams) error
+
+	GetUSer(ctx context.Context, params provider.PutProviderProviderIDParams) (*query.GetUserRow, error)
 }
 
 func NewRepositories(q *query.Queries) Repositories {
