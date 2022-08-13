@@ -6,7 +6,7 @@ import (
 	"hanoman-id/xendit-payment/internal/repository/query"
 )
 
-func (r *repositories) GetUSer(ctx context.Context, params provider.PutProviderProviderIDParams) (*query.GetUserRow, error) {
+func (r *repositories) GetUSer(ctx context.Context, params provider.PutProviderParams) (*query.GetUserRow, error) {
 	data, err := r.qry.GetUser(ctx, params.Body.Username)
 	if err != nil {
 		return nil, err

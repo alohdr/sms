@@ -17,10 +17,11 @@ type Repositories interface {
 	EditTemplate(ctx context.Context, params template.PutTemplateTemplateIDParams) error
 	DeleteTemplate(ctx context.Context, params template.DeleteTemplateTemplateIDParams) error
 
-	GetProvider(ctx context.Context) (*query.GetProviderRow, error)
-	UpdateProvider(ctx context.Context, params provider.PutProviderProviderIDParams) error
+	GetProvider(ctx context.Context) ([]*query.GetProviderRow, error)
+	UpdateProvider(ctx context.Context, params provider.PutProviderParams) error
+	UpdateAllFalse(ctx context.Context) error
 
-	GetUSer(ctx context.Context, params provider.PutProviderProviderIDParams) (*query.GetUserRow, error)
+	GetUSer(ctx context.Context, params provider.PutProviderParams) (*query.GetUserRow, error)
 }
 
 func NewRepositories(q *query.Queries) Repositories {

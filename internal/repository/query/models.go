@@ -9,10 +9,21 @@ import (
 )
 
 type Provider struct {
-	ID        string       `json:"id"`
-	Name      string       `json:"name"`
-	IsDeleted sql.NullBool `json:"is_deleted"`
-	CreatedAt sql.NullTime `json:"created_at"`
+	ID         string       `json:"id"`
+	Name       string       `json:"name"`
+	IsSelected sql.NullBool `json:"is_selected"`
+	IsDeleted  sql.NullBool `json:"is_deleted"`
+	CreatedAt  sql.NullTime `json:"created_at"`
+}
+
+type SmsHistory struct {
+	ID          string       `json:"id"`
+	Sender      string       `json:"sender"`
+	PhoneNumber string       `json:"phone_number"`
+	Type        string       `json:"type"`
+	Status      string       `json:"status"`
+	IsDeleted   bool         `json:"is_deleted"`
+	CreatedAt   sql.NullTime `json:"created_at"`
 }
 
 type Template struct {

@@ -8,7 +8,7 @@ import (
 	"hanoman-id/xendit-payment/pkg/utils"
 )
 
-func (uc *useCase) UpdateProvider(ctx context.Context, params provider.PutProviderProviderIDParams) (*string, error) {
+func (uc *useCase) UpdateProvider(ctx context.Context, params provider.PutProviderParams) (*string, error) {
 	data, err := uc.repo.GetUSer(ctx, params)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
@@ -22,6 +22,11 @@ func (uc *useCase) UpdateProvider(ctx context.Context, params provider.PutProvid
 		return nil, errors.New(utils.ErrInvalidPassword)
 	}
 
+	err = uc.repo.UpdateAllFalse(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	err = uc.repo.UpdateProvider(ctx, params)
 	if err != nil {
 		return nil, err
@@ -33,17 +38,20 @@ func (uc *useCase) UpdateProvider(ctx context.Context, params provider.PutProvid
 
 }
 
-func (uc *useCase) GetProvider(ctx context.Context) (*provider.GetProviderOKBodyResponseData, error) {
+func (uc *useCase) GetProvider(ctx context.Context) ([]*provider.GetProviderOKBodyResponseDataItems0, error) {
+	var resp []*provider.GetProviderOKBodyResponseDataItems0
 	data, err := uc.repo.GetProvider(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	response := &provider.GetProviderOKBodyResponseData{
-		ID:   data.ID,
-		Name: data.Name,
+	for _, v := range data {
+		resp = append(resp, &provider.GetProviderOKBodyResponseDataItems0{
+			ID:   v.ID,
+			Name: v.Name,
+		})
 	}
 
-	return response, nil
+	return resp, nil
 
 }

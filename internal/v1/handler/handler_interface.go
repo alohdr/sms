@@ -18,7 +18,7 @@ type Handlers interface {
 	EditTemplate(ctx context.Context, params template.PutTemplateTemplateIDParams) (*template.PutTemplateTemplateIDOKBody, error)
 	DeleteTemplate(ctx context.Context, params template.DeleteTemplateTemplateIDParams) (*template.DeleteTemplateTemplateIDOKBody, error)
 
-	UpdateProvider(ctx context.Context, params provider.PutProviderProviderIDParams) (*provider.PutProviderProviderIDOKBody, error)
+	UpdateProvider(ctx context.Context, params provider.PutProviderParams) (*provider.PutProviderProviderIDOKBody, error)
 	GetProvider(ctx context.Context) (*provider.GetProviderOKBody, error)
 }
 

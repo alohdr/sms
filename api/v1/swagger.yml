@@ -237,23 +237,23 @@ paths:
               response_messege:
                 type: string
               response_data:
-                type: object
-                properties: 
-                  id:
-                    type: "string"
-                    description: "success retrieve data"
-                    example: "app running well"
-                  name:
-                    type: "string"
-                    description: "success retrieve data"
-                    example: "app running well"
+                type: array
+                items: 
+                  properties: 
+                    id:
+                      type: "string"
+                      description: "success retrieve data"
+                      example: "app running well"
+                    name:
+                      type: "string"
+                      description: "success retrieve data"
+                      example: "app running well"
         "400":
           $ref: "#/responses/BadRequest"
         "401":
           $ref: "#/responses/BadRequest"
         "404":
           $ref: "#/responses/NotFound" 
-  /provider/{provider_id}:
     put:
       summary: "Health check"
       description: "Health check endpoint"
@@ -262,21 +262,17 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - in: path
-          name: provider_id
-          type: string
-          required: true
         - in: body
           name: body
           schema:
             properties: 
-              username:
+              id:
                 type: string
                 example: ""
               password:
                 type: string
                 example: ""
-              provider_name:
+              username:
                 type: string
                 example: ""
       responses:
