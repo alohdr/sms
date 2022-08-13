@@ -14,6 +14,7 @@ type handler struct {
 type Handlers interface {
 	CreateTemplate(ctx context.Context, params template.PostTemplateParams) (*template.PostTemplateOKBody, error)
 	GetListTemplate(ctx context.Context) (*template.GetTemplateOKBody, error)
+	EditTemplate(ctx context.Context, params template.PutTemplateTemplateIDParams) (*template.PutTemplateTemplateIDOKBody, error)
 }
 
 func NewHandler() Handlers {

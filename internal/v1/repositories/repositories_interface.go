@@ -13,6 +13,8 @@ type repositories struct {
 type Repositories interface {
 	CreateTemplate(ctx context.Context, params template.PostTemplateParams, id string) error
 	GetListTemplate(ctx context.Context) ([]*query.GetListTemplateRow, error)
+	EditTemplate(ctx context.Context, params template.PutTemplateTemplateIDParams) error
+	DeleteTemplate(ctx context.Context, params template.DeleteTemplateTemplateIDParams) error
 }
 
 func NewRepositories(q *query.Queries) Repositories {

@@ -37,6 +37,20 @@ func (q *Queries) CreateTemplate(ctx context.Context, arg *CreateTemplateParams)
 	)
 }
 
+const deleteTemplate = `-- name: DeleteTemplate :exec
+UPDATE template
+SET is_deleted = true
+WHERE
+    id = ?
+AND
+    is_deleted = false
+`
+
+func (q *Queries) DeleteTemplate(ctx context.Context, id string) error {
+	_, err := q.db.ExecContext(ctx, deleteTemplate, id)
+	return err
+}
+
 const getListTemplate = `-- name: GetListTemplate :many
 SELECT
     id, 
@@ -81,4 +95,33 @@ func (q *Queries) GetListTemplate(ctx context.Context) ([]*GetListTemplateRow, e
 		return nil, err
 	}
 	return items, nil
+}
+
+const updateTemplate = `-- name: UpdateTemplate :exec
+UPDATE template
+SET 
+    type = ?,
+    apps_name = ?, 
+    text = ?
+WHERE
+    id = ?
+AND
+    is_deleted = false
+`
+
+type UpdateTemplateParams struct {
+	Type     string `json:"type"`
+	AppsName string `json:"apps_name"`
+	Text     string `json:"text"`
+	ID       string `json:"id"`
+}
+
+func (q *Queries) UpdateTemplate(ctx context.Context, arg *UpdateTemplateParams) error {
+	_, err := q.db.ExecContext(ctx, updateTemplate,
+		arg.Type,
+		arg.AppsName,
+		arg.Text,
+		arg.ID,
+	)
+	return err
 }

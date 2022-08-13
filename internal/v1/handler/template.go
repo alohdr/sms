@@ -20,13 +20,26 @@ func (h *handler) CreateTemplate(ctx context.Context, params template.PostTempla
 }
 
 func (h *handler) GetListTemplate(ctx context.Context) (*template.GetTemplateOKBody, error) {
-	_, err := h.useCase.GetListTemplate(ctx)
+	data, err := h.useCase.GetListTemplate(ctx)
 	if err != nil {
 		return nil, err
 	}
 	res := &template.GetTemplateOKBody{
 		ResponseCode:    "",
-		ResponseData:    nil,
+		ResponseData:    *data,
+		ResponseMessege: "",
+	}
+	return res, nil
+}
+
+func (h *handler) EditTemplate(ctx context.Context, params template.PutTemplateTemplateIDParams) (*template.PutTemplateTemplateIDOKBody, error) {
+	data, err := h.useCase.EditTemplate(ctx, params)
+	if err != nil {
+		return nil, err
+	}
+	res := &template.PutTemplateTemplateIDOKBody{
+		ResponseCode:    "",
+		ResponseData:    *data,
 		ResponseMessege: "",
 	}
 	return res, nil
