@@ -16,7 +16,7 @@ SELECT
 FROM
     users
 WHERE
-    id = ?
+    username = ?
     and is_deleted = false
 `
 
@@ -25,8 +25,8 @@ type GetUserRow struct {
 	Password string `json:"password"`
 }
 
-func (q *Queries) GetUser(ctx context.Context, id string) (*GetUserRow, error) {
-	row := q.db.QueryRowContext(ctx, getUser, id)
+func (q *Queries) GetUser(ctx context.Context, username string) (*GetUserRow, error) {
+	row := q.db.QueryRowContext(ctx, getUser, username)
 	var i GetUserRow
 	err := row.Scan(&i.Username, &i.Password)
 	return &i, err

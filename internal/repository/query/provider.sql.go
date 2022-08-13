@@ -7,42 +7,82 @@ package query
 
 import (
 	"context"
+	"database/sql"
 )
 
-const getProvider = `-- name: GetProvider :one
+const getProvider = `-- name: GetProvider :many
 SELECT
     id,
-    name
+    name,
+    is_selected,
+    is_selected
 FROM
     provider
 WHERE
-    id = "1"
-    and is_deleted = false
+    is_deleted = false
 `
 
 type GetProviderRow struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID           string       `json:"id"`
+	Name         string       `json:"name"`
+	IsSelected   sql.NullBool `json:"is_selected"`
+	IsSelected_2 sql.NullBool `json:"is_selected_2"`
 }
 
-func (q *Queries) GetProvider(ctx context.Context) (*GetProviderRow, error) {
-	row := q.db.QueryRowContext(ctx, getProvider)
-	var i GetProviderRow
-	err := row.Scan(&i.ID, &i.Name)
-	return &i, err
+func (q *Queries) GetProvider(ctx context.Context) ([]*GetProviderRow, error) {
+	rows, err := q.db.QueryContext(ctx, getProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []*GetProviderRow
+	for rows.Next() {
+		var i GetProviderRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.IsSelected,
+			&i.IsSelected_2,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, &i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const updateFalseProvider = `-- name: UpdateFalseProvider :exec
+UPDATE
+    provider
+SET
+    is_selected = false
+WHERE
+    is_selected = true
+and is_deleted = false
+`
+
+func (q *Queries) UpdateFalseProvider(ctx context.Context) error {
+	_, err := q.db.ExecContext(ctx, updateFalseProvider)
+	return err
 }
 
 const updateProvider = `-- name: UpdateProvider :exec
 UPDATE
     provider
 SET
-    name = ?
+    is_selected = true
 WHERE
-    id = "1"
-    and is_deleted = false
+    id = ?
+and is_deleted = false
 `
 
-func (q *Queries) UpdateProvider(ctx context.Context, name string) error {
-	_, err := q.db.ExecContext(ctx, updateProvider, name)
+func (q *Queries) UpdateProvider(ctx context.Context, id string) error {
+	_, err := q.db.ExecContext(ctx, updateProvider, id)
 	return err
 }

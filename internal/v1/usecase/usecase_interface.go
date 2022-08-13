@@ -18,8 +18,8 @@ type UseCase interface {
 	EditTemplate(ctx context.Context, params template.PutTemplateTemplateIDParams) (*string, error)
 	DeleteTemplate(ctx context.Context, params template.DeleteTemplateTemplateIDParams) (*string, error)
 
-	UpdateProvider(ctx context.Context, params provider.PutProviderProviderIDParams) (*string, error)
-	GetProvider(ctx context.Context) (*provider.GetProviderOKBodyResponseData, error)
+	UpdateProvider(ctx context.Context, params provider.PutProviderParams) (*string, error)
+	GetProvider(ctx context.Context) ([]*provider.GetProviderOKBodyResponseDataItems0, error)
 }
 
 func NewUseCase(r repositories.Repositories) UseCase {

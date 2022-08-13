@@ -3,7 +3,6 @@ module hanoman-id/xendit-payment
 go 1.18
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-openapi/errors v0.20.2
 	github.com/go-openapi/loads v0.21.1
 	github.com/go-openapi/runtime v0.24.1
@@ -15,6 +14,7 @@ require (
 	github.com/google/uuid v1.1.1
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/joho/godotenv v1.3.0
+	golang.org/x/crypto v0.0.0-20201216223049-8b5274cf687f
 	golang.org/x/net v0.0.0-20220607020251-c690dde0001d
 )
 

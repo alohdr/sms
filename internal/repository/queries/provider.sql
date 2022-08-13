@@ -1,18 +1,28 @@
--- name: GetProvider :one
+-- name: GetProvider :many
 SELECT
     id,
-    name
+    name,
+    is_selected,
+    is_selected
 FROM
     provider
 WHERE
-    id = "1"
-    and is_deleted = false;
+    is_deleted = false;
 
 -- name: UpdateProvider :exec
 UPDATE
     provider
 SET
-    name = ?
+    is_selected = true
 WHERE
-    id = "1"
-    and is_deleted = false;
+    id = ?
+and is_deleted = false;
+
+-- name: UpdateFalseProvider :exec
+UPDATE
+    provider
+SET
+    is_selected = false
+WHERE
+    is_selected = true
+and is_deleted = false;

@@ -6,7 +6,7 @@ import (
 	"hanoman-id/xendit-payment/pkg/utils"
 )
 
-func (h *handler) UpdateProvider(ctx context.Context, params provider.PutProviderProviderIDParams) (*provider.PutProviderProviderIDOKBody, error) {
+func (h *handler) UpdateProvider(ctx context.Context, params provider.PutProviderParams) (*provider.PutProviderProviderIDOKBody, error) {
 	_, err := h.useCase.UpdateProvider(ctx, params)
 	if err != nil {
 		return nil, err
