@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS making_payment (
+    id INT(3) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    bank_code VARCHAR(100) NOT NULL,
+    type VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL
+);
