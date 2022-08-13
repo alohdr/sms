@@ -4,18 +4,30 @@
 
 package query
 
-import ()
+import (
+	"database/sql"
+)
 
-type MakingPayment struct {
-	ID          int32  `json:"id"`
-	BankCode    string `json:"bank_code"`
-	Type        string `json:"type"`
-	Description string `json:"description"`
+type Provider struct {
+	ID        string       `json:"id"`
+	Name      string       `json:"name"`
+	IsDeleted sql.NullBool `json:"is_deleted"`
+	CreatedAt sql.NullTime `json:"created_at"`
 }
 
-type Otp struct {
-	ID          int32  `json:"id"`
-	PhoneNumber string `json:"phone_number"`
-	Otp         string `json:"otp"`
-	ExpiredDate string `json:"expired_date"`
+type Template struct {
+	ID        string       `json:"id"`
+	Type      string       `json:"type"`
+	AppsName  string       `json:"apps_name"`
+	Text      string       `json:"text"`
+	IsDeleted sql.NullBool `json:"is_deleted"`
+	CreatedAt sql.NullTime `json:"created_at"`
+}
+
+type User struct {
+	ID        string       `json:"id"`
+	Username  string       `json:"username"`
+	Password  string       `json:"password"`
+	IsDeleted sql.NullBool `json:"is_deleted"`
+	CreatedAt sql.NullTime `json:"created_at"`
 }
