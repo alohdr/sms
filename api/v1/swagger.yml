@@ -266,20 +266,31 @@ paths:
           name: provider_id
           type: string
           required: true
+        - in: body
+          name: body
+          schema:
+            properties: 
+              username:
+                type: string
+                example: ""
+              password:
+                type: string
+                example: ""
+              provider_name:
+                type: string
+                example: ""
       responses:
         "200":
           description: "Success"
           schema:
             type: object
             properties:
-              id:
-                type: "string"
-                description: "success retrieve data"
-                example: "app running well"
-              name:
-                type: "string"
-                description: "success retrieve data"
-                example: "app running well"
+              response_code:
+                type: string
+              response_messege:
+                type: string
+              response_data:
+                type: string
         "400":
           $ref: "#/responses/BadRequest"
         "401":
