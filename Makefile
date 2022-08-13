@@ -3,35 +3,35 @@
 all: run-sqlc validate clean build
 
 validate:
-	swagger validate ./api/swagger.yml
+	swagger validate ./api/v1/swagger.yml
 
 spec:
-	swagger generate spec -o ./api/swagger-gen.yml
+	swagger generate spec -o ./api/v1/swagger-gen.yml
 
 build:
-	swagger -q generate server -A hanoman-payment -f api/swagger.yml -s internal/apis -m internal/models
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -v ./cmd/hanoman-payment-server
+	swagger -q generate server -A sms-microservice -f api/v1/swagger.yml -s internal/apis -m internal/models
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -v ./cmd/sms-microservice-server
 
 
 api: validate clean build
-	./hanoman-payment-server --port=8080 --host=0.0.0.0
+	./sms-microservice-server --port=8080 --host=0.0.0.0
 
 run: all
-	./hanoman-payment-server --port=8080 --host=0.0.0.0
+	./sms-microservice-server --port=8080 --host=0.0.0.0
 
 doc:
-	swagger validate ./api/swagger.yml
-	swagger serve api/swagger.yml --no-open --host=0.0.0.0 --port=9090 --base-path=/
+	swagger validate ./api/v1/swagger.yml
+	swagger serve api/v1/swagger.yml --no-open --host=0.0.0.0 --port=9090 --base-path=/
 
 clean:
-	rm -rf hanoman-payment-server
+	rm -rf sms-microservice-server
 	go clean -i .
 
 run-sqlc:
 	./run-sqlc.sh
 
 migrate-up-local:
-	migrate -path internal/repository/schema -database "mysql://maul:maul@tcp(127.0.0.1:3306)/payment?query" -verbose up
+	migrate -path internal/repository/schema -database "mysql://maul:maul@tcp(127.0.0.1:3306)/sms-microservice?query" -verbose up
 
 create-migration:
 	migrate create -ext sql -dir internal/repository/schema -seq $(action)

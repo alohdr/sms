@@ -3,14 +3,13 @@ package configs
 import (
 	"database/sql"
 	"fmt"
+	"hanoman-id/xendit-payment/internal/repository/query"
+	"hanoman-id/xendit-payment/internal/v1/repositories"
+	"hanoman-id/xendit-payment/internal/v1/usecase"
 	"log"
 	"os"
 	"sync"
 	"time"
-
-	"hanoman-id/xendit-payment/internal/repositories"
-	"hanoman-id/xendit-payment/internal/repository/query"
-	"hanoman-id/xendit-payment/internal/usecase"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
