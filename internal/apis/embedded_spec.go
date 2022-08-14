@@ -57,6 +57,10 @@ func init() {
                         "type": "string",
                         "example": "app running well"
                       },
+                      "is_actived": {
+                        "type": "boolean",
+                        "example": "app running well"
+                      },
                       "name": {
                         "description": "success retrieve data",
                         "type": "string",
@@ -1260,6 +1264,10 @@ func init() {
         "id": {
           "description": "success retrieve data",
           "type": "string",
+          "example": "app running well"
+        },
+        "is_actived": {
+          "type": "boolean",
           "example": "app running well"
         },
         "name": {

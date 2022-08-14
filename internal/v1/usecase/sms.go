@@ -45,11 +45,11 @@ func (uc *useCase) CreateSms(ctx context.Context, params sms.PostSmsParams) (*st
 	var url string
 	var body map[string]interface{}
 	var header map[string]string
-
 	data, err := uc.repo.IsSelectProvider(ctx)
 	if err != nil {
 		return nil, err
 	}
+
 	if params.Body.Type == "notif" {
 		notifNumber = "1"
 	} else if params.Body.Type == "otp" {

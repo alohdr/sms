@@ -47,8 +47,9 @@ func (uc *useCase) GetProvider(ctx context.Context) ([]*provider.GetProviderOKBo
 
 	for _, v := range data {
 		resp = append(resp, &provider.GetProviderOKBodyResponseDataItems0{
-			ID:   v.ID,
-			Name: v.Name,
+			ID:        v.ID,
+			IsActived: v.IsSelected,
+			Name:      v.Name,
 		})
 	}
 

@@ -31,7 +31,7 @@ run-sqlc:
 	./run-sqlc.sh
 
 migrate-up:
-	migrate -path internal/repository/schema -database "mysql://maul:maul@tcp(127.0.0.1:3306)/sms-microservice?query" -verbose up
+	migrate -path internal/repository/schema -database "mysql://maul:maul@tcp(52.77.253.103:3306)/sms-microservice?query" -verbose up
 
 migrate-down:
 	migrate -path internal/repository/schema -database "mysql://maul:maul@tcp(127.0.0.1:3306)/sms-microservice?query" -verbose down
