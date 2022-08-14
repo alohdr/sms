@@ -3,6 +3,7 @@ package usecase
 import (
 	"context"
 	"hanoman-id/xendit-payment/internal/apis/operations/provider"
+	"hanoman-id/xendit-payment/internal/apis/operations/sms"
 	"hanoman-id/xendit-payment/internal/apis/operations/template"
 	"hanoman-id/xendit-payment/internal/models"
 	"hanoman-id/xendit-payment/internal/v1/repositories"
@@ -20,6 +21,9 @@ type UseCase interface {
 
 	UpdateProvider(ctx context.Context, params provider.PutProviderParams) (*string, error)
 	GetProvider(ctx context.Context) ([]*provider.GetProviderOKBodyResponseDataItems0, error)
+
+	GetSmsHistory(ctx context.Context) (*models.SmsHistory, error)
+	CreateSms(ctx context.Context, params sms.PostSmsParams) (*string, error)
 }
 
 func NewUseCase(r repositories.Repositories) UseCase {
