@@ -62,8 +62,6 @@ func (uc *useCase) CreateSms(ctx context.Context, params sms.PostSmsParams) (*st
 		return nil, err
 	}
 
-	fmt.Println(template)
-
 	if strings.EqualFold(data.ID, utils.IdProviderA) {
 		body = map[string]interface{}{
 			"source":          params.Body.AppsName,
