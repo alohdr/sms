@@ -14,10 +14,10 @@ build:
 
 
 api: validate clean build
-	./sms-microservice-server --port=8080 --host=0.0.0.0
+	./sms-microservice-server --port=8081 --host=0.0.0.0
 
 run: all
-	./sms-microservice-server --port=8080 --host=0.0.0.0
+	./sms-microservice-server --port=8081 --host=0.0.0.0
 
 doc:
 	swagger validate ./api/v1/swagger.yml
