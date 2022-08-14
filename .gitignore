@@ -1,9 +1,4 @@
 .idea/
 .vscode/
 
-internal/apis/*
-internal/models/*
-!internal/apis/configure_hanoman_payment.go
-!internal/handler/*
-
 hanoman-payment-server
