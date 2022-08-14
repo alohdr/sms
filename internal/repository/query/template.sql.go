@@ -97,6 +97,44 @@ func (q *Queries) GetListTemplate(ctx context.Context) ([]*GetListTemplateRow, e
 	return items, nil
 }
 
+const getTemplateById = `-- name: GetTemplateById :one
+SELECT
+    id, 
+    type, 
+    apps_name, 
+    text
+FROM template
+WHERE
+ type = ?
+ and apps_name = ?
+ and is_deleted = false
+LIMIT 1
+`
+
+type GetTemplateByIdParams struct {
+	Type     string `json:"type"`
+	AppsName string `json:"apps_name"`
+}
+
+type GetTemplateByIdRow struct {
+	ID       string `json:"id"`
+	Type     string `json:"type"`
+	AppsName string `json:"apps_name"`
+	Text     string `json:"text"`
+}
+
+func (q *Queries) GetTemplateById(ctx context.Context, arg *GetTemplateByIdParams) (*GetTemplateByIdRow, error) {
+	row := q.db.QueryRowContext(ctx, getTemplateById, arg.Type, arg.AppsName)
+	var i GetTemplateByIdRow
+	err := row.Scan(
+		&i.ID,
+		&i.Type,
+		&i.AppsName,
+		&i.Text,
+	)
+	return &i, err
+}
+
 const updateTemplate = `-- name: UpdateTemplate :exec
 UPDATE template
 SET 

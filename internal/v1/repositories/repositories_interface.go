@@ -17,6 +17,7 @@ type Repositories interface {
 	GetListTemplate(ctx context.Context) ([]*query.GetListTemplateRow, error)
 	EditTemplate(ctx context.Context, params template.PutTemplateTemplateIDParams) error
 	DeleteTemplate(ctx context.Context, params template.DeleteTemplateTemplateIDParams) error
+	GetTemplateBid(ctx context.Context, typeNotif string, appsName string) (*query.GetTemplateByIdRow, error)
 
 	GetProvider(ctx context.Context) ([]*query.GetProviderRow, error)
 	UpdateProvider(ctx context.Context, params provider.PutProviderParams) error

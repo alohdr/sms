@@ -21,6 +21,19 @@ func (r *repositories) CreateTemplate(ctx context.Context, params template.PostT
 	return nil
 }
 
+func (r *repositories) GetTemplateBid(ctx context.Context, typeNotif string, appsName string) (*query.GetTemplateByIdRow, error) {
+	arg := &query.GetTemplateByIdParams{
+		Type:     typeNotif,
+		AppsName: appsName,
+	}
+	data, err := r.qry.GetTemplateById(ctx, arg)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 func (r *repositories) GetListTemplate(ctx context.Context) ([]*query.GetListTemplateRow, error) {
 	data, err := r.qry.GetListTemplate(ctx)
 	if err != nil {

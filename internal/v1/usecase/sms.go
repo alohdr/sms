@@ -39,6 +39,9 @@ func (uc *useCase) GetSmsHistory(ctx context.Context) (*models.SmsHistory, error
 
 func (uc *useCase) CreateSms(ctx context.Context, params sms.PostSmsParams) (*string, error) {
 	id := uuid.New().String()
+
+	var notifNumber string
+
 	var url string
 	var body map[string]interface{}
 	var header map[string]string
@@ -47,12 +50,25 @@ func (uc *useCase) CreateSms(ctx context.Context, params sms.PostSmsParams) (*st
 	if err != nil {
 		return nil, err
 	}
+	if params.Body.Type == "notif" {
+		notifNumber = "1"
+	} else if params.Body.Type == "otp" {
+		notifNumber = "2"
+
+	}
+
+	template, err := uc.repo.GetTemplateBid(ctx, notifNumber, params.Body.AppsName)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println(template)
 
 	if strings.EqualFold(data.ID, utils.IdProviderA) {
 		body = map[string]interface{}{
 			"source":          params.Body.AppsName,
 			"destination":     params.Body.PhoneNumber,
-			"text":            "temp1",
+			"text":            template.Text + params.Body.Token,
 			"clientMessageId": "Teknologi Informasi",
 			"encoding":        "",
 		}
