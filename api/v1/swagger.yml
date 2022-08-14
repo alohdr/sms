@@ -64,11 +64,6 @@ paths:
         - "Sms"
       produces:
         - "application/json"
-      parameters:
-        - in: query
-          name: provider_name
-          type: string
-          required: true
       responses:
         "200":
           description: "Success"
@@ -301,9 +296,24 @@ definitions:
     items: 
       properties: 
         id:
-          type: integer
-        name:
           type: string
+        phone_number:
+          type: string
+        request:
+          type: object
+          properties: 
+            sender:
+             type: string
+             example: ""
+            type_messege:
+              example: ""
+              type: string
+        responses:  
+          type: object
+          properties: 
+            status:
+              type: string
+              example: "Success"
 
   Metadata:
     type: object

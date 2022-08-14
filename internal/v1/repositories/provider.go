@@ -32,3 +32,12 @@ func (r *repositories) UpdateAllFalse(ctx context.Context) error {
 
 	return nil
 }
+
+func (r *repositories) IsSelectProvider(ctx context.Context) (*query.GetIsSelectedProviderRow, error) {
+	data, err := r.qry.GetIsSelectedProvider(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
