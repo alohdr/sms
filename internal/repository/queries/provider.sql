@@ -2,7 +2,6 @@
 SELECT
     id,
     name,
-    is_selected,
     is_selected
 FROM
     provider

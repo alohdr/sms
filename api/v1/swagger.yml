@@ -243,6 +243,9 @@ paths:
                       type: "string"
                       description: "success retrieve data"
                       example: "app running well"
+                    is_actived:
+                      type: boolean
+                      example: "app running well"
         "400":
           $ref: "#/responses/BadRequest"
         "401":

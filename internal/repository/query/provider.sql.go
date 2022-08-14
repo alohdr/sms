@@ -7,14 +7,12 @@ package query
 
 import (
 	"context"
-	"database/sql"
 )
 
 const getProvider = `-- name: GetProvider :many
 SELECT
     id,
     name,
-    is_selected,
     is_selected
 FROM
     provider
@@ -23,10 +21,9 @@ WHERE
 `
 
 type GetProviderRow struct {
-	ID           string       `json:"id"`
-	Name         string       `json:"name"`
-	IsSelected   sql.NullBool `json:"is_selected"`
-	IsSelected_2 sql.NullBool `json:"is_selected_2"`
+	ID         string `json:"id"`
+	Name       string `json:"name"`
+	IsSelected bool   `json:"is_selected"`
 }
 
 func (q *Queries) GetProvider(ctx context.Context) ([]*GetProviderRow, error) {
@@ -38,12 +35,7 @@ func (q *Queries) GetProvider(ctx context.Context) ([]*GetProviderRow, error) {
 	var items []*GetProviderRow
 	for rows.Next() {
 		var i GetProviderRow
-		if err := rows.Scan(
-			&i.ID,
-			&i.Name,
-			&i.IsSelected,
-			&i.IsSelected_2,
-		); err != nil {
+		if err := rows.Scan(&i.ID, &i.Name, &i.IsSelected); err != nil {
 			return nil, err
 		}
 		items = append(items, &i)

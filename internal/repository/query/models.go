@@ -11,7 +11,7 @@ import (
 type Provider struct {
 	ID         string       `json:"id"`
 	Name       string       `json:"name"`
-	IsSelected sql.NullBool `json:"is_selected"`
+	IsSelected bool         `json:"is_selected"`
 	IsDeleted  sql.NullBool `json:"is_deleted"`
 	CreatedAt  sql.NullTime `json:"created_at"`
 }

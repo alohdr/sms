@@ -178,6 +178,10 @@ type GetProviderOKBodyResponseDataItems0 struct {
 	// Example: app running well
 	ID string `json:"id,omitempty"`
 
+	// is actived
+	// Example: app running well
+	IsActived bool `json:"is_actived,omitempty"`
+
 	// success retrieve data
 	// Example: app running well
 	Name string `json:"name,omitempty"`
