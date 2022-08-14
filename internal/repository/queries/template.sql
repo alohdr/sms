@@ -39,3 +39,17 @@ WHERE
 AND
     is_deleted = false
 ;
+
+-- name: GetTemplateById :one
+SELECT
+    id, 
+    type, 
+    apps_name, 
+    text
+FROM template
+WHERE
+ type = ?
+ and apps_name = ?
+ and is_deleted = false
+LIMIT 1
+;
