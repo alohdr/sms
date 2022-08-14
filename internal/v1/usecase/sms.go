@@ -96,9 +96,6 @@ func (uc *useCase) CreateSms(ctx context.Context, params sms.PostSmsParams) (*st
 		url = os.Getenv("URL_B")
 	}
 
-	// if strings.EqualFold(params.Body.AppsName, utils.APPS_NAME_PINANG) {
-
-	// }
 	hasil := utils.NewHttpRequest(http.MethodPost, url, body, header, nil)
 	fmt.Println(hasil)
 
